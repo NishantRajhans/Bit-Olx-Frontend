@@ -1,42 +1,48 @@
-import * as React from 'react';
-import Button from '@mui/material/Button';
-import Card from '@mui/material/Card';
-import CardActions from '@mui/material/CardActions';
-import CardContent from '@mui/material/CardContent';
-import CardMedia from '@mui/material/CardMedia';
-import CssBaseline from '@mui/material/CssBaseline';
-import Grid from '@mui/material/Grid';
-import Stack from '@mui/material/Stack';
-import Box from '@mui/material/Box';
-import { styled } from '@mui/material/styles';
-import Typography from '@mui/material/Typography';
-import Container from '@mui/material/Container';
-import CardHeader from '@mui/material/CardHeader';
-import Avatar from '@mui/material/Avatar';
-import IconButton from '@mui/material/IconButton';
-import { red } from '@mui/material/colors';
-import FavoriteIcon from '@mui/icons-material/Favorite';
-import MoreVertIcon from '@mui/icons-material/MoreVert';
-import { createTheme, ThemeProvider } from '@mui/material/styles';
-import { purple } from '@mui/material/colors';
-
-const cards = [1, 2, 3, 4, 5, 6, 7, 8, 9];
+import * as React from "react";
+import Button from "@mui/material/Button";
+import Card from "@mui/material/Card";
+import CardContent from "@mui/material/CardContent";
+import CardMedia from "@mui/material/CardMedia";
+import CssBaseline from "@mui/material/CssBaseline";
+import Grid from "@mui/material/Grid";
+import Stack from "@mui/material/Stack";
+import Box from "@mui/material/Box";
+import Typography from "@mui/material/Typography";
+import Container from "@mui/material/Container";
+import CardHeader from "@mui/material/CardHeader";
+import Avatar from "@mui/material/Avatar";
+import { red } from "@mui/material/colors";
+import { createTheme, ThemeProvider } from "@mui/material/styles";
+import { useRecoilState } from "recoil";
+import { ProductData } from "../Recoil/Product";
+import axios from "axios";
+import { useNavigate } from "react-router-dom";
 const defaultTheme = createTheme();
-const ColorButton = styled(Button)(({ theme }) => ({
-  color: theme.palette.getContrastText(purple[500]),
-  backgroundColor: purple[500],
-  '&:hover': {
-    backgroundColor: purple[700],
-  },
-}));
-export default function Album() {
+export default function AllProducts() {
+  const [Product, setProduct] = useRecoilState(ProductData);
+  const navigate = useNavigate();
+  const AllProduct = async () => {
+    const Productdata = await axios.get(
+      "https://bit-olx-backend.onrender.com/api/v1/Product/GetAllProducts",
+      {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("Token")}`,
+        },
+      }
+    );
+    setProduct(Productdata.data.Products);
+  };
+  React.useEffect(() => {
+    if(localStorage.getItem("Token")===null)navigate("/LogIn")
+    AllProduct();
+  }, []);
   return (
     <ThemeProvider theme={defaultTheme}>
       <CssBaseline />
-      <main>
+      <main className="bg-black min-h-screen cursor-pointer">
         <Box
           sx={{
-            pt: 8,
+            pt: 15,
             pb: 6,
           }}
         >
@@ -47,49 +53,102 @@ export default function Album() {
               spacing={2}
               justifyContent="center"
             >
-              <ColorButton variant="contained">All Products</ColorButton>
-              <ColorButton variant="contained">Dress</ColorButton>
-              <ColorButton variant="contained">Calculator</ColorButton>
+              <Button
+                sx={{
+                  backgroundColor: "red",
+                  color: "white",
+                  fontWeight: "800",
+                  textTransform: "none",
+                  ":hover": { backgroundColor: "red", color: "black" },
+                }}
+              >
+                All Products
+              </Button>
+              <Button
+                sx={{
+                  backgroundColor: "red",
+                  color: "white",
+                  fontWeight: "800",
+                  textTransform: "none",
+                  ":hover": { backgroundColor: "red", color: "black" },
+                }}
+              >
+                Dress
+              </Button>
+              <Button
+                sx={{
+                  backgroundColor: "red",
+                  color: "white",
+                  fontWeight: "800",
+                  textTransform: "none",
+                  ":hover": { backgroundColor: "red", color: "black" },
+                }}
+              >
+                Calculator
+              </Button>
             </Stack>
           </Container>
         </Box>
-        <Container sx={{ py: 8}}>
+        <Container sx={{ py: 8 }}>
           {/* End hero unit */}
-          <Grid className='flex justify-center items-center flex-wrap' >
-            {cards.map(()=>(
-              <Card sx={{ maxWidth: 345 ,m:3}}>
-              <CardHeader
-                avatar={
-                  <Avatar sx={{ bgcolor: red[500] }} aria-label="recipe">
-                    R
-                  </Avatar>
-                }
-                action={
-                  <IconButton aria-label="settings">
-                    <MoreVertIcon />
-                  </IconButton>
-                }
-                title="Shrimp and Chorizo Paella"
-                subheader="September 14, 2016"
-              />
-              <CardMedia
-                component="img"
-                height="194"
-                image="/static/images/cards/paella.jpg"
-                alt="Paella dish"
-              />
-              <CardContent>
-                <Typography variant="body2" color="text.secondary">
-                  This impressive paella is a perfect party dish and a fun meal to cook
-                  together with your guests.
-                </Typography>
-              </CardContent>
-              <CardActions disableSpacing>
-                <IconButton aria-label="add to favorites">
-                  <FavoriteIcon />
-                </IconButton>
-              </CardActions>
-            </Card>
+          <Grid className="flex justify-center items-center flex-wrap">
+            {Product?.map((product) => (
+              <Card
+                key={product._id}
+                sx={{
+                  maxWidth: 345,
+                  m: 3,
+                  backgroundColor: "rgba(255, 255, 255,.1)",
+                }}
+              >
+                <CardHeader
+                  avatar={
+                    <Avatar sx={{ bgcolor: red[500] }} aria-label="recipe">
+                      <Avatar>
+                        {product.ProductSeller.FirstName.split(
+                          ""
+                        )[0].toUpperCase()}
+                        {product.ProductSeller.LastName.split(
+                          ""
+                        )[0].toUpperCase()}
+                      </Avatar>
+                    </Avatar>
+                  }
+                  title={
+                    <span className="text-white font-bold">
+                      {product.ProductSeller.FirstName + " "}
+                      {" " + product.ProductSeller.LastName}
+                    </span>
+                  }
+                  subheader={
+                    <span className=" text-warning-100">
+                      {product.ProductCreatedAt}
+                    </span>
+                  }
+                />
+                <CardMedia
+                  component="img"
+                  height="194"
+                  image={product.ProductImage}
+                  alt="Paella dish"
+                  className=" text-white font-bold"
+                  onClick={() => {
+                    navigate(`/Product/${product._id}`);
+                  }}
+                />
+                <CardContent
+                onClick={() => {
+                  navigate(`/Product/${product._id}`);
+                }}
+                >
+                  <Typography className=" text-warning-100">
+                    {product.ProductDescription}
+                  </Typography>
+                  <Typography className=" text-warning-100">
+                    {product.ProductPrice}
+                  </Typography>
+                </CardContent>
+              </Card>
             ))}
           </Grid>
         </Container>

@@ -8,19 +8,26 @@ import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
 import axios from "axios";
-import { useNavigate } from "react-router-dom";
-import InputLabel from "@mui/material/InputLabel";
-import MenuItem from "@mui/material/MenuItem";
-import FormControl from "@mui/material/FormControl";
-import Select from "@mui/material/Select";
+import { useLocation, useNavigate } from "react-router-dom";
 import toast, { Toaster } from "react-hot-toast";
 import TextareaAutosize from "@mui/material/TextareaAutosize";
 import { useState } from "react";
-
-export default function CreateProduct() {
-  const [selectedOption, setSelectedOption] = useState('');
-  const handleChange = (event) => {
-    setSelectedOption(event.target.value);
+import { ProductData } from "../Recoil/Product";
+import { useEffect } from "react";
+export default function EditProduct() {
+  const [Product,setProduct]=useState()
+  const location=useLocation()
+  const Id = location.pathname.split("/")[2];
+  const ProductDetail = async () => {
+    const product = await axios.get(
+      `https://bit-olx-backend.onrender.com/api/v1/Product/GetProduct/${Id}`,
+      {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("Token")}`,
+        },
+      }
+    );
+    setProduct(product.data.Product);
   };
   const [file,setfile]=useState()
   const handleFileUpload = (event) => {
@@ -36,11 +43,10 @@ export default function CreateProduct() {
         const data = new FormData(event.currentTarget);
         data.append("ProductImage",file)
         if(!file)toast.error("Image is not available")
-        const ProductInfo=await axios.post("https://bit-olx-backend.onrender.com/api/v1/Product/CreateProduct",
+        const ProductInfo=await axios.put(`https://bit-olx-backend.onrender.com/api/v1/Product/EditProduct/${Id}`,
         {
           ProductImage:data.get("ProductImage"),
           ProductDescription:data.get("Description"),
-          ProductCategory:data.get("Select"),
           ProductPrice:data.get("Price"),
           ProductTitle:data.get("Title")
         },
@@ -51,12 +57,15 @@ export default function CreateProduct() {
           },
         }
         )
-        toast.success("Product created successfully")
+        toast.success("Product Edited successfully")
       } catch (err) {
         console.log("Error in Fetching data:", err)
       }
     }
   };
+  useEffect(() => {
+    ProductDetail();
+  }, []);
   return (
     <div className=" w-full min-h-screen mt-14 bg-black flex justify-center items-center nest-hub:pt-10 pb-20 nest-hub:mt-10 nest-hub:h-full sm:mt-12">
       <Container
@@ -83,7 +92,7 @@ export default function CreateProduct() {
             fontWeight="bold"
             color={"white"}
           >
-            Create Product
+            Edit Product
           </Typography>
           <Box
             component="form"
@@ -104,6 +113,7 @@ export default function CreateProduct() {
                   label="Title Of Your Product"
                   name="Title"
                   autoComplete="Title"
+                  defaultValue={Product?.ProductTitle}
                 />
               </Grid>
               <Grid item xs={12}>
@@ -113,6 +123,7 @@ export default function CreateProduct() {
                   id="Description"
                   name="Description"
                   autoComplete="Title"
+                  defaultValue={Product?.ProductDescription}
                   style={{
                     width: "100%",
                     backgroundColor: "#5B5A5A",
@@ -133,24 +144,8 @@ export default function CreateProduct() {
                   type="string"
                   id="Price"
                   autoComplete="new-price"
+                  defaultValue={Product?.ProductPrice}
                 />
-              </Grid>
-              <Grid item xs={12}>
-                <FormControl fullWidth>
-                  <InputLabel id="Select">
-                    Select Option
-                  </InputLabel>
-                  <Select
-                    labelId="Select"
-                    name="Select"
-                    value={selectedOption}
-                    onChange={handleChange}
-                  >
-                    <MenuItem value="Dress">Dress</MenuItem>
-                    <MenuItem value="Calculator">Calculator</MenuItem>
-                    <MenuItem value="Other">Other</MenuItem>
-                  </Select>
-                </FormControl>
               </Grid>
               <Grid item xs={12}>
                 <input
@@ -159,6 +154,7 @@ export default function CreateProduct() {
                   type="file"
                   style={{ display: "none" }}
                   onChange={handleFileUpload}
+                  defaultValue={Product?.ProductImage}
                 />
                 <label htmlFor="File">
                   <Button
@@ -187,7 +183,7 @@ export default function CreateProduct() {
                 ":hover": { backgroundColor: "red", color: "black" },
               }}
             >
-              Create Product
+              Edit Product
             </Button>
           </Box>
         </Box>

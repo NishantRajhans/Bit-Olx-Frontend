@@ -20,7 +20,7 @@ export default function SignUp() {
   const handleSubmit = async(event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
-    const signupdata=await axios.post("https://bitolx-backend.onrender.com/api/v1/auth/signup",{
+    const signupdata=await axios.post("https://bit-olx-backend.onrender.com/api/v1/auth/signup",{
       FirstName:data.get('firstName'),
       LastName:data.get('lastName'),
       Email: data.get('email'),
@@ -29,30 +29,30 @@ export default function SignUp() {
       PhoneNumber: data.get('PhoneNumber')
     })
     toast.success(signupdata.data.message)
-    if(signupdata.data.message!=="user already exist")navigate("/LogIn")
+    if(signupdata.data.message!=="User already exists")navigate("/LogIn")
   };
 
   return (
-    <ThemeProvider theme={defaultTheme}>
-      <Container component="main" maxWidth="xs" className=' mb-5'>
+    <div className='w-full min-h-screen mt-10 bg-black flex justify-center items-center nest-hub:pt-10 pb-20 nest-hub:mt-10 nest-hub:h-full sm:mt-12'>
+      <Container component="main" maxWidth="xs" className='sm:mt-24 md:mt-20 pb-10 lg:pt-14'>
         <CssBaseline />
         <Box
           sx={{
-            marginTop: 8,
+            marginTop: 10,
             display: 'flex',
             flexDirection: 'column',
             alignItems: 'center',
+            justifyContent: 'center',
+            backgroundColor: '#5B5A5A', // Change background color to black
+            paddingTop:"4rem",padding:"1rem",
           }}
         >
-          <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
-            <LockOutlinedIcon />
-          </Avatar>
-          <Typography component="h1" variant="h5" fontWeight="bold">
+          <Typography component="h1" variant="h5" fontWeight="bold" color={'white'}>
             Sign Up
           </Typography>
-          <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 3 }}>
+          <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 3}}>
             <Grid container spacing={2}>
-              <Grid item xs={12} sm={6}>
+              <Grid item xs={12} sm={6} className='text-white'>
                 <TextField
                   autoComplete="given-name"
                   name="firstName"
@@ -61,6 +61,7 @@ export default function SignUp() {
                   id="firstName"
                   label="First Name"
                   autoFocus
+                  sx={{color:"white"}}
                 />
               </Grid>
               <Grid item xs={12} sm={6}>
@@ -119,14 +120,13 @@ export default function SignUp() {
             <Button
               type="submit"
               fullWidth
-              variant="contained"
-              sx={{ mt: 3, mb: 2 ,backgroundColor:'#CE84DC', ":hover":{backgroundColor:'#8272D7'}}}
+              sx={{ mt: 3, mb: 2,backgroundColor:"red",color:"white",fontWeight:"800",":hover":{backgroundColor:"red",color:"black"}}}
             >
               Sign Up
             </Button>
             <Grid container>
               <Grid item>
-                <Link variant="body2" onClick={()=>{navigate('/LogIn')}} style={{ cursor: 'pointer'}}>
+                <Link sx={{color:"white"}} onClick={()=>{navigate('/LogIn')}} style={{ cursor: 'pointer'}}>
                   Already have an account? Log in
                 </Link>
               </Grid>
@@ -134,6 +134,6 @@ export default function SignUp() {
           </Box>
         </Box>
       </Container>
-    </ThemeProvider>
+    </div>  
   );
 }

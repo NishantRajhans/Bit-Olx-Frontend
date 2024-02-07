@@ -12,6 +12,7 @@ import SignUpPage from "./Pages/SignUpPage"
 import WishListPage from "./Pages/WishListPage"
 import NavBar from "./Components/NavBar"
 import Footer from "./Components/Footer"
+import EditProductPage from "./Pages/EditProductPage"
 import toast, { Toaster } from 'react-hot-toast';
 function App() {
   return (
@@ -19,11 +20,12 @@ function App() {
        <Toaster/>
       <NavBar></NavBar>
       <Routes>
-        <Route path='/Home' element={<HomePage></HomePage>}></Route>
+        <Route path='/' element={<HomePage></HomePage>}></Route>
         <Route path='/LogIn' element={<LogInPage></LogInPage>}></Route>
         <Route path='/SignUp' element={<SignUpPage></SignUpPage>}></Route>
         <Route path='/ForgetPassword' element={<ForgetPasswordPage></ForgetPasswordPage>}></Route>
         <Route path='/CreateProduct' element={<CreateProductPage></CreateProductPage>}></Route>
+        <Route path='/EditProduct/:id' element={<EditProductPage></EditProductPage>}></Route>
         <Route path='/AllProducts' element={<AllProductsPage></AllProductsPage>}></Route>
         <Route path='/Product/:id' element={<ProductPage></ProductPage>}></Route>
         <Route path='/MyProduct' element={<MyProductPage></MyProductPage>}></Route>

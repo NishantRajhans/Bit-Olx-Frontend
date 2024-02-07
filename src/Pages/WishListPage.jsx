@@ -1,87 +1,102 @@
-const people = [
-    {
-      name: 'Leslie Alexander',
-      email: 'leslie.alexander@example.com',
-      role: 'Co-Founder / CEO',
-      imageUrl:
-        'https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80',
-      lastSeen: '3h ago',
-      lastSeenDateTime: '2023-01-23T13:23Z',
-    },
-    {
-      name: 'Michael Foster',
-      email: 'michael.foster@example.com',
-      role: 'Co-Founder / CTO',
-      imageUrl:
-        'https://images.unsplash.com/photo-1519244703995-f4e0f30006d5?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80',
-      lastSeen: '3h ago',
-      lastSeenDateTime: '2023-01-23T13:23Z',
-    },
-    {
-      name: 'Dries Vincent',
-      email: 'dries.vincent@example.com',
-      role: 'Business Relations',
-      imageUrl:
-        'https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80',
-      lastSeen: null,
-    },
-    {
-      name: 'Lindsay Walton',
-      email: 'lindsay.walton@example.com',
-      role: 'Front-end Developer',
-      imageUrl:
-        'https://images.unsplash.com/photo-1517841905240-472988babdf9?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80',
-      lastSeen: '3h ago',
-      lastSeenDateTime: '2023-01-23T13:23Z',
-    },
-    {
-      name: 'Courtney Henry',
-      email: 'courtney.henry@example.com',
-      role: 'Designer',
-      imageUrl:
-        'https://images.unsplash.com/photo-1438761681033-6461ffad8d80?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80',
-      lastSeen: '3h ago',
-      lastSeenDateTime: '2023-01-23T13:23Z',
-    },
-    {
-      name: 'Tom Cook',
-      email: 'tom.cook@example.com',
-      role: 'Director of Product',
-      imageUrl:
-        'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80',
-      lastSeen: null,
-    },
-  ]
-  
-  export default function Example() {
-    return (
-      <ul role="list" className="divide-y divide-gray-100">
-        {people.map((person) => (
-          <li key={person.email} className="flex justify-between gap-x-6 py-5">
-            <div className="flex min-w-0 gap-x-4">
-              <img className="h-12 w-12 flex-none rounded-full bg-gray-50" src={person.imageUrl} alt="" />
-              <div className="min-w-0 flex-auto">
-                <p className="text-sm font-semibold leading-6 text-gray-900">{person.name}</p>
-                <p className="mt-1 truncate text-xs leading-5 text-gray-500">{person.email}</p>
-              </div>
-            </div>
-            <div className="hidden shrink-0 sm:flex sm:flex-col sm:items-end">
-              <p className="text-sm leading-6 text-gray-900">{person.role}</p>
-              {person.lastSeen ? (
-                <p className="mt-1 text-xs leading-5 text-gray-500">
-                  Last seen <time dateTime={person.lastSeenDateTime}>{person.lastSeen}</time>
-                </p>
-              ) : (
-                <div className="mt-1 flex items-center gap-x-1.5">
-                  <div className="flex-none rounded-full bg-emerald-500/20 p-1">
-                    <div className="h-1.5 w-1.5 rounded-full bg-emerald-500" />
-                  </div>
-                  <p className="text-xs leading-5 text-gray-500">Online</p>
-                </div>
-              )}
-            </div>
-          </li>
-        ))}
-      </ul>
-    )
+import Button from "@mui/material/Button";
+import toast, { Toaster } from "react-hot-toast";
+import { useEffect, useState } from "react";
+import CancelIcon from "@mui/icons-material/Cancel";
+import axios from "axios";
+import { useNavigate } from "react-router-dom";
+import SearchIcon from '@mui/icons-material/Search';
+import { useRecoilState } from "recoil";
+import { WishListNumber } from "../Recoil/WishListNumber";
+export default function WishList() {
+  const [WishList, setWishList] =useState([])
+  const [WistListCount, setWistListCount] =useRecoilState(WishListNumber)
+  const navigate=useNavigate()
+  const WishListCall=async()=>{
+    const WishListData=await axios.get(
+      "https://bit-olx-backend.onrender.com/api/v1/User/GetAllWishListProducts",
+      {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("Token")}`,
+        },
+      }
+    );
+    console.log(WishListData)
+    setWishList(WishListData?.data.User[0].WishList);
+    setWistListCount(WishListData?.data.User[0].WishList?.length);
   }
+  const handleclick=async(id)=>{
+    const WishListData = await axios.delete(
+      `https://bit-olx-backend.onrender.com/api/v1/User/RemoveFromWishList/${id}`,
+      {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("Token")}`,
+        },
+      }
+    );
+    toast.success("Remove From WishList Successfully")
+    console.log(WishListData)
+    setWistListCount(WishListData?.data.User.WishList?.length);
+    WishListCall();
+  }
+  useEffect(() => {
+    WishListCall()
+  }, []);
+  return (
+    <div className=" bg-black mt-0 h-screen">
+      <div className=" mx-auto w-3/4 bg-black sm:pb-8">
+        <ul role="list" className="divide-y divide-gray-100 pt-24">
+          {WishList?.map((wishlist) => (
+            <li
+              key={wishlist.ProductCreatedAt}
+              className="flex justify-between gap-x-6 py-5"
+            >
+              <div className="flex min-w-0 gap-x-4">
+                <img
+                  className="h-12 w-12 flex-none rounded-full bg-gray-50"
+                  src={wishlist.ProductImage}
+                  alt=""
+                />
+                <div className="min-w-0 flex-auto">
+                  <p className="text-sm font-semibold leading-6 text-white">
+                    {wishlist.ProductCreatedAt}
+                  </p>
+                  <p className="mt-1 truncate text-xs leading-5 text-warning-100">
+                    {wishlist.ProductDescription}
+                  </p>
+                </div>
+              </div>
+              <div className=" shrink-0 sm:flex sm:flex-col sm:items-end flex flex-col justify-end items-center gap-2">
+                <Button
+                  sx={{
+                    color: "white",
+                    backgroundColor: "red",
+                    fontWeight: "800",
+                    ":hover": { color: "black", backgroundColor: "red" },
+                  }}
+                  onClick={()=>handleclick(wishlist._id)}
+                  endIcon={<CancelIcon />}
+                  fullWidth
+                >
+                  Remove
+                </Button>
+                <Button
+                  sx={{
+                    color: "black",
+                    backgroundColor: "white",
+                    fontWeight: "800",
+                    ":hover": { color: "black", backgroundColor: "white" },
+                  }}
+                  onClick={()=>{navigate(`/Product/${wishlist._id}`)}}
+                  endIcon={<SearchIcon  />}
+                  fullWidth
+                >
+                  View
+                </Button>
+              </div>
+            </li>
+          ))}
+        </ul>
+      </div>
+    </div>
+  );
+}

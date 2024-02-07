@@ -7,6 +7,9 @@ module.exports = {
   ],
   theme: {
       extend: {},
+      screens: {
+        'nest-hub': '740px', // Approximate width of the Google Nest Hub
+      },
   },
   darkMode: "class",
   plugins: [require("tw-elements-react/dist/plugin.cjs")]

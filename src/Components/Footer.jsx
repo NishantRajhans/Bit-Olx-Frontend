@@ -2,16 +2,16 @@ import React from 'react';
 import { TERipple } from "tw-elements-react";
 import "../App.css"
 import { Link } from 'react-router-dom';
-export default function FooterButtonsDarkExample(){
+export default function Footer(){
     return (
-        <footer className="Footer text-center text-white">
+        <footer className=" text-center text-white bg-black bg-opacity-90">
             <div className="container px-6 pt-6 mx-auto">
-                <div className="mb-6 flex justify-center w-full">
+                <div className="mb-6 flex justify-evenly w-full">
                     <TERipple rippleColor="light" className=' cursor-pointer'>
                         <Link to=""
 
                             type="button"
-                            className="m-1 h-9 w-9 rounded-full border-2 border-white uppercase leading-normal text-white transition duration-150 ease-in-out hover:bg-black hover:bg-opacity-5 focus:outline-none focus:ring-0"
+                            className="m-1 h-9 w-9 rounded-full border-2 border-warning-100 uppercase leading-normal text-warning-100 transition duration-150 ease-in-out hover:bg-black hover:bg-opacity-5 focus:outline-none focus:ring-0"
 
                         >
                             <svg
@@ -29,7 +29,7 @@ export default function FooterButtonsDarkExample(){
                         <Link to=""
 
                             type="button"
-                            className="m-1 h-9 w-9 rounded-full border-2 border-white uppercase leading-normal text-white transition duration-150 ease-in-out hover:bg-black hover:bg-opacity-5 focus:outline-none focus:ring-0"
+                            className="m-1 h-9 w-9 rounded-full border-2 border-warning-100 uppercase leading-normal text-warning-100 transition duration-150 ease-in-out hover:bg-black hover:bg-opacity-5 focus:outline-none focus:ring-0"
 
                         >
                             <svg
@@ -47,12 +47,12 @@ export default function FooterButtonsDarkExample(){
                         <Link to=""
 
                             type="button"
-                            className="m-1 h-9 w-9 rounded-full border-2 border-white uppercase leading-normal text-white transition duration-150 ease-in-out hover:bg-black hover:bg-opacity-5 focus:outline-none focus:ring-0"
+                            className="m-1 h-9 w-9 rounded-full border-2 border-warning-100 uppercase leading-normal text-warning-100 transition duration-150 ease-in-out hover:bg-black hover:bg-opacity-5 focus:outline-none focus:ring-0"
 
                         >
                             <svg
                                 xmlns="http://www.w3.org/2000/svg"
-                                className="mx-auto h-full w-4"
+                                className="mx-auto h-full w-4 "
                                 fill="currentColor"
                                 viewBox="0 0 24 24">
                                 <path
@@ -67,7 +67,7 @@ export default function FooterButtonsDarkExample(){
                         <Link to=""
 
                             type="button"
-                            className="m-1 h-9 w-9 rounded-full border-2 border-white uppercase leading-normal text-white transition duration-150 ease-in-out hover:bg-black hover:bg-opacity-5 focus:outline-none focus:ring-0"
+                            className="m-1 h-9 w-9 rounded-full border-2 border-warning-100 uppercase leading-normal text-warning-100 transition duration-150 ease-in-out hover:bg-black hover:bg-opacity-5 focus:outline-none focus:ring-0"
 
                         >
                             <svg
@@ -84,7 +84,7 @@ export default function FooterButtonsDarkExample(){
                     <TERipple rippleColor="light" className=' cursor-pointer'>
                         <Link to="https://www.linkedin.com/in/nishant-priyadarshi-76b4aa228/"
                             type="button"
-                            className="m-1 h-9 w-9 rounded-full border-2 border-white uppercase leading-normal text-white transition duration-150 ease-in-out hover:bg-black hover:bg-opacity-5 focus:outline-none focus:ring-0"
+                            className="m-1 h-9 w-9 rounded-full border-2 border-warning-100 uppercase leading-normal text-warning-100 transition duration-150 ease-in-out hover:bg-black hover:bg-opacity-5 focus:outline-none focus:ring-0"
 
                         >
                             <svg
@@ -101,7 +101,7 @@ export default function FooterButtonsDarkExample(){
                     <TERipple rippleColor="light" className=' cursor-pointer'>
                         <Link to="https://github.com/NishantRajhans"
                             type="button"
-                            className="m-1 h-9 w-9 rounded-full border-2 border-white uppercase leading-normal text-white transition duration-150 ease-in-out hover:bg-black hover:bg-opacity-5 focus:outline-none focus:ring-0">
+                            className="m-1 h-9 w-9 rounded-full border-2 border-warning-100 uppercase leading-normal text-warning-100 transition duration-150 ease-in-out hover:bg-black hover:bg-opacity-5 focus:outline-none focus:ring-0">
                             <svg
                                 xmlns="http://www.w3.org/2000/svg"
                                 className="mx-auto h-full w-4"
@@ -118,10 +118,10 @@ export default function FooterButtonsDarkExample(){
 
             {/* <!--Copyright section--> */}
             <div
-                className="p-4 text-center bg-black bg-opacity-20">
-                © 2023 Copyright:
-                <Link to="" className="text-whitehite" href="https://tw-elements.com/"
-                >TW Elements</Link >
+                className="p-4 text-center text-warning-100">
+                © 2024 Copyright:
+                <Link to="" className=" text-warning-100" href=""
+                >Bit-Olx</Link >
             </div>
         </footer>
     );

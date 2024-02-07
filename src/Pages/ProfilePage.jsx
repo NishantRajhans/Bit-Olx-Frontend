@@ -1,58 +1,85 @@
-import * as React from 'react';
-import Avatar from '@mui/material/Avatar';
-import Button from '@mui/material/Button';
-import CssBaseline from '@mui/material/CssBaseline';
-import TextField from '@mui/material/TextField';
-import Link from '@mui/material/Link';
-import Grid from '@mui/material/Grid';
-import Box from '@mui/material/Box';
-import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
-import Typography from '@mui/material/Typography';
-import Container from '@mui/material/Container';
-import { createTheme, ThemeProvider } from '@mui/material/styles';
-import axios from 'axios';
-import { useNavigate } from 'react-router-dom';
-import toast, { Toaster } from 'react-hot-toast';
+import * as React from "react";
+import Button from "@mui/material/Button";
+import CssBaseline from "@mui/material/CssBaseline";
+import TextField from "@mui/material/TextField";
+import Grid from "@mui/material/Grid";
+import Box from "@mui/material/Box";
+import Typography from "@mui/material/Typography";
+import Container from "@mui/material/Container";
+import { createTheme, ThemeProvider } from "@mui/material/styles";
+import axios from "axios";
+import { useNavigate } from "react-router-dom";
+import toast, { Toaster } from "react-hot-toast";
+import { UserState } from "../Recoil/User";
+import { useRecoilState } from "recoil";
 const defaultTheme = createTheme();
 
-export default function SignUp() {
-  const navigate=useNavigate()
-  const handleSubmit = async(event) => {
+export default function Profile() {
+  const [User, setUser] = useRecoilState(UserState);
+  const navigate = useNavigate();
+  const handleSubmit = async (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
-    const signupdata=await axios.post("https://todo-backend-sa39.onrender.com/api/v1/auth/signup",{
-      FirstName:data.get('firstName'),
-      LastName:data.get('lastName'),
-      Email: data.get('email'),
-      Password: data.get('password'),
-      ConfirmPassword: data.get('ConfirmPassword'),
-      PhoneNumber: data.get('PhoneNumber')
-    })
-    alert(signupdata.data.message)
-    if(signupdata.data.message!=="user already exist")navigate("/LogIn")
+    const updatedata = await axios.put(
+      "https://bit-olx-backend.onrender.com/api/v1/User/EditUser",
+      {
+        FirstName: data.get("firstName"),
+        LastName: data.get("lastName"),
+        Password: data.get("password"),
+        ConfirmPassword: data.get("ConfirmPassword"),
+        PhoneNumber: data.get("PhoneNumber"),
+      },
+      {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("Token")}`,
+        },
+      }
+    );
+    toast.success(updatedata.data.message);
+    localStorage.setItem("PhoneNumber", updatedata.data.NewUser.PhoneNumber);
+    localStorage.setItem(
+      "User",
+      updatedata.data.NewUser.FirstName + " " + updatedata.data.NewUser.LastName
+    );
+    setUser(localStorage.getItem("User"));
   };
 
   return (
-    <ThemeProvider theme={defaultTheme}>
-      <Container component="main" maxWidth="xs">
+    <div className="w-full h-screen mt-10 bg-black flex justify-center items-center nest-hub:pt-10 pb-20 nest-hub:mt-10 nest-hub:h-full sm:mt-12">
+      <Container
+        component="main"
+        maxWidth="xs"
+        className="sm:mt-24 md:mt-20 pb-10 lg:pt-14"
+      >
         <CssBaseline />
         <Box
           sx={{
-            marginTop: 8,
-            display: 'flex',
-            flexDirection: 'column',
-            alignItems: 'center',
+            marginTop: 10,
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center",
+            justifyContent: "center",
+            backgroundColor: "#5B5A5A", // Change background color to black
+            paddingTop: "4rem",
+            padding: "1rem",
           }}
         >
-          <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
-            <LockOutlinedIcon />
-          </Avatar>
-          <Typography component="h1" variant="h5" fontWeight="bold">
-            Sign Up
+          <Typography
+            component="h1"
+            variant="h5"
+            fontWeight="bold"
+            color={"white"}
+          >
+            Edit Profile
           </Typography>
-          <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 3 }}>
+          <Box
+            component="form"
+            noValidate
+            onSubmit={handleSubmit}
+            sx={{ mt: 3 }}
+          >
             <Grid container spacing={2}>
-              <Grid item xs={12} sm={6}>
+              <Grid item xs={12} sm={6} className="text-white">
                 <TextField
                   autoComplete="given-name"
                   name="firstName"
@@ -60,7 +87,9 @@ export default function SignUp() {
                   fullWidth
                   id="firstName"
                   label="First Name"
+                  defaultValue={localStorage.getItem("User")?.split(" ")[0]}
                   autoFocus
+                  sx={{ color: "white" }}
                 />
               </Grid>
               <Grid item xs={12} sm={6}>
@@ -68,19 +97,10 @@ export default function SignUp() {
                   required
                   fullWidth
                   id="lastName"
+                  defaultValue={localStorage.getItem("User")?.split(" ")[1]}
                   label="Last Name"
                   name="lastName"
                   autoComplete="family-name"
-                />
-              </Grid>
-              <Grid item xs={12}>
-                <TextField
-                  required
-                  fullWidth
-                  id="email"
-                  label="Email Address"
-                  name="email"
-                  autoComplete="email"
                 />
               </Grid>
               <Grid item xs={12}>
@@ -109,6 +129,7 @@ export default function SignUp() {
                 <TextField
                   required
                   fullWidth
+                  defaultValue={localStorage.getItem("PhoneNumber")}
                   name="PhoneNumber"
                   label="Phone Number"
                   id="PhoneNumber"
@@ -119,21 +140,20 @@ export default function SignUp() {
             <Button
               type="submit"
               fullWidth
-              variant="contained"
-              sx={{ mt: 3, mb: 2 ,backgroundColor:'#CE84DC', ":hover":{backgroundColor:'#8272D7'}}}
+              sx={{
+                mt: 3,
+                mb: 2,
+                backgroundColor: "red",
+                color: "white",
+                fontWeight: "800",
+                ":hover": { backgroundColor: "red", color: "black" },
+              }}
             >
-              Sign Up
+              Edit Profile
             </Button>
-            <Grid container justifyContent="flex-center">
-              <Grid item>
-                <Link variant="body2" onClick={()=>{navigate('/LogIn')}} style={{ cursor: 'pointer' }}>
-                  Already have an account? Log in
-                </Link>
-              </Grid>
-            </Grid>
           </Box>
         </Box>
       </Container>
-    </ThemeProvider>
+    </div>
   );
 }

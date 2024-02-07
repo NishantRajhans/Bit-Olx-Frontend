@@ -24,15 +24,17 @@ export default function LogIn() {
     event.preventDefault();
     try{
       const data = new FormData(event.currentTarget);
-    const logindata=await axios.post("https://bitolx-backend.onrender.com/api/v1/auth/login",{
+    const logindata=await axios.post("https://bit-olx-backend.onrender.com/api/v1/auth/login",{
       Email: data.get('email'),
       Password: data.get('password'),
       ConfirmPassword: data.get('confirmpassword'),
     })
     toast.success(logindata.data.message)
-    if(logindata.data.token!=null){
-      localStorage.setItem("Token",logindata.data.token)
-      localStorage.setItem("User",logindata.data.user.FirstName+" "+logindata.data.user.LastName);
+    if(logindata.data.User.Token!=null){
+      localStorage.setItem("Token",logindata.data.User.Token)
+      localStorage.setItem("PhoneNumber",logindata.data.User.PhoneNumber);
+      console.log(logindata.data.User)
+      localStorage.setItem("User",logindata.data.User.FirstName+" "+logindata.data.User.LastName);
       setUser(localStorage.getItem("User"));
       navigate("/")
     }else{
@@ -42,9 +44,9 @@ export default function LogIn() {
     }
   };
   return (
-    <>
+    <div className=' w-full min-h-screen mt-5 bg-black flex justify-center items-center nest-hub:pt-10 pb-20 nest-hub:mt-5 nest-hub:h-full sm:pt-12'>
     <ThemeProvider theme={defaultTheme}>
-      <Container component="main" maxWidth="xs" className=' mb-5'>
+      <Container component="main" maxWidth="xs" className='mt-4 pb-10 lg:pt-14 nest-hub:pt-24'>
         <CssBaseline />
         <Box
           sx={{
@@ -52,12 +54,11 @@ export default function LogIn() {
             display: 'flex',
             flexDirection: 'column',
             alignItems: 'center',
+            backgroundColor: '#5B5A5A', // Change background color to black
+            paddingTop:"4rem",padding:"1rem",
           }}
         >
-          <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
-            <LockOutlinedIcon />
-          </Avatar>
-          <Typography component="h1" variant="h5" fontWeight="bold">
+          <Typography component="h1" variant="h5" fontWeight="bold" color={'white'}>
             Log In
           </Typography>
           <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
@@ -95,13 +96,13 @@ export default function LogIn() {
               type="submit"
               fullWidth
               variant="contained"
-              sx={{ mt: 3, mb: 2 ,backgroundColor:'#CE84DC', ":hover":{backgroundColor:'#8272D7'}}}
+              sx={{ mt: 3, mb: 2,backgroundColor:"red",color:"white",fontWeight:"800",":hover":{backgroundColor:"red",color:"black"}}}
             >
               Log In
             </Button>
             <Grid container justifyContent="flex-center">
               <Grid item>
-                <Link variant="body2" onClick={()=>{navigate('/SignUp')}} style={{ cursor: 'pointer' }}>
+                <Link sx={{color:"white"}} onClick={()=>{navigate('/SignUp')}} style={{ cursor: 'pointer' }}>
                 Don't have an account? Sign Up
                 </Link>
               </Grid>
@@ -110,6 +111,6 @@ export default function LogIn() {
         </Box>
       </Container>
     </ThemeProvider>
-    </>
+    </div>
   );
 }

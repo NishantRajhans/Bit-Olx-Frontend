@@ -1,37 +1,5 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-.App {
-  background: hsla(300, 2%, 10%, 1);
 
-background: linear-gradient(135deg, hsla(300, 2%, 10%, 1) 0%, hsla(240, 4%, 9%, 1) 25%, hsla(330, 1%, 31%, 1) 100%);
-
-background: -moz-linear-gradient(135deg, hsla(300, 2%, 10%, 1) 0%, hsla(240, 4%, 9%, 1) 25%, hsla(330, 1%, 31%, 1) 100%);
-
-background: -webkit-linear-gradient(135deg, hsla(300, 2%, 10%, 1) 0%, hsla(240, 4%, 9%, 1) 25%, hsla(330, 1%, 31%, 1) 100%);
-
-filter: progid: DXImageTransform.Microsoft.gradient( startColorstr="#1B1A1B", endColorstr="#161618", GradientType=1 );
-}
-.NavBar{
-  background: hsla(288, 53%, 41%, 1);
-
-  background: linear-gradient(135deg, hsla(288, 53%, 41%, 1) 0%, hsla(240, 4%, 9%, 1) 25%, hsla(330, 1%, 31%, 1) 100%);
-  
-  background: -moz-linear-gradient(135deg, hsla(288, 53%, 41%, 1) 0%, hsla(240, 4%, 9%, 1) 25%, hsla(330, 1%, 31%, 1) 100%);
-  
-  background: -webkit-linear-gradient(135deg, hsla(288, 53%, 41%, 1) 0%, hsla(240, 4%, 9%, 1) 25%, hsla(330, 1%, 31%, 1) 100%);
-  
-  filter: progid: DXImageTransform.Microsoft.gradient( startColorstr="#8931A0", endColorstr="#161618", GradientType=1 );
-}
-.Footer{
-  background: hsla(288, 53%, 41%, 1);
-
-  background: linear-gradient(135deg, hsla(288, 53%, 41%, 1) 0%, hsla(240, 4%, 9%, 1) 25%, hsla(330, 1%, 31%, 1) 100%);
-  
-  background: -moz-linear-gradient(135deg, hsla(288, 53%, 41%, 1) 0%, hsla(240, 4%, 9%, 1) 25%, hsla(330, 1%, 31%, 1) 100%);
-  
-  background: -webkit-linear-gradient(135deg, hsla(288, 53%, 41%, 1) 0%, hsla(240, 4%, 9%, 1) 25%, hsla(330, 1%, 31%, 1) 100%);
-  
-  filter: progid: DXImageTransform.Microsoft.gradient( startColorstr="#8931A0", endColorstr="#161618", GradientType=1 );
-}
 
