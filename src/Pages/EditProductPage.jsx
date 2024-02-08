@@ -57,7 +57,8 @@ export default function EditProduct() {
           },
         }
         )
-        toast.success("Product Edited successfully")
+        if(ProductInfo.data.success==false)toast.error(ProductInfo.data.message)
+        else toast.success(ProductInfo.data.message)
       } catch (err) {
         console.log("Error in Fetching data:", err)
       }

@@ -28,7 +28,8 @@ export default function SignUp() {
       ConfirmPassword: data.get('ConfirmPassword'),
       PhoneNumber: data.get('PhoneNumber')
     })
-    toast.success(signupdata.data.message)
+    if(signupdata.data.success==false)toast.error(signupdata.data.message)
+        else toast.success(signupdata.data.message)
     if(signupdata.data.message!=="User already exists")navigate("/LogIn")
   };
 

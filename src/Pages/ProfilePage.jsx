@@ -35,7 +35,8 @@ export default function Profile() {
         },
       }
     );
-    toast.success(updatedata.data.message);
+    if(updatedata.data.success==false)toast.error(updatedata.data.message)
+        else toast.success(updatedata.data.message)
     localStorage.setItem("PhoneNumber", updatedata.data.NewUser.PhoneNumber);
     localStorage.setItem(
       "User",

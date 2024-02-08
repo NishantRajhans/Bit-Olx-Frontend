@@ -39,7 +39,7 @@ export default function AllProducts() {
   return (
     <ThemeProvider theme={defaultTheme}>
       <CssBaseline />
-      <main className="bg-black min-h-screen cursor-pointer">
+      <main className="bg-black min-h-screen">
         <Box
           sx={{
             pt: 15,
@@ -99,6 +99,7 @@ export default function AllProducts() {
                   maxWidth: 345,
                   m: 3,
                   backgroundColor: "rgba(255, 255, 255,.1)",
+                  cursor:"pointer"
                 }}
               >
                 <CardHeader
@@ -148,7 +149,7 @@ export default function AllProducts() {
                     {product.ProductDescription.substring(0,20)+"..."}
                   </Typography>
                   <Typography className=" text-warning-100">
-                    {product.ProductPrice}
+                    {product.ProductPrice+" Rs"}
                   </Typography>
                 </CardContent>
               </Card>

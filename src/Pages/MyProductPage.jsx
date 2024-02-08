@@ -25,7 +25,8 @@ export default function MyProduct() {
         Authorization: `Bearer ${localStorage.getItem("Token")}`,
       },
     })
-    toast.success(response.data.message)
+    if(response.data.success==false)toast.error(response.data.message)
+    else toast.success(response.data.message)
     setProduct(Product.filter((prod)=>prod._id!=id))
   }
   useEffect(() => {

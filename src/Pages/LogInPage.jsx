@@ -29,7 +29,8 @@ export default function LogIn() {
       Password: data.get('password'),
       ConfirmPassword: data.get('confirmpassword'),
     })
-    toast.success(logindata.data.message)
+    if(logindata.data.success==false)toast.error(logindata.data.message)
+    else toast.success(logindata.data.message)
     if(logindata.data.User.Token!=null){
       localStorage.setItem("Token",logindata.data.User.Token)
       localStorage.setItem("PhoneNumber",logindata.data.User.PhoneNumber);

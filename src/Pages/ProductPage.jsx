@@ -39,7 +39,8 @@ export default function Product() {
         },
       }
     );
-    toast.success(product.data.message)
+    if(product.data.success==false)toast.error(product.data.message)
+        else toast.success(product.data.message)
     if(product.data.message!="Product already present in wish list")setWistListCount(WishListCount+1)
   }
   useEffect(() => {
@@ -50,7 +51,7 @@ export default function Product() {
     <div className="bg-black min-h-screen">
       <div className=" pt-6">
         {/* Image gallery */}
-        <div className="mx-auto mt-6 max-w-2xl sm:px-6 lg:grid lg:max-w-7xl lg:grid-cols-3 lg:gap-x-8 lg:px-8">
+        <div className="mx-auto mt-20 max-w-2xl sm:px-6 lg:grid lg:max-w-7xl lg:grid-cols-3 lg:gap-x-8 lg:px-8">
           <div className="aspect-h-4 aspect-w-3 overflow-hidden rounded-lg lg:block">
             <img
               src={Product?.ProductImage}
@@ -64,9 +65,9 @@ export default function Product() {
         <div className="bg-[#5B5A5A] mx-auto max-w-2xl px-4 pb-16 pt-10 sm:px-6 lg:grid lg:max-w-7xl lg:grid-cols-3 lg:grid-rows-[auto,auto,1fr] lg:gap-x-8 lg:px-8 lg:pb-24 lg:pt-16">
           <div className="lg:col-span-2 lg:border-r lg:border-gray-200 lg:pr-8">
             <h1 className="text-2xl font-bold tracking-tight text-white sm:text-3xl">
-              Product Created On
+              Product Title
             </h1>
-            <h3 className=" text-warning-100">{Product?.ProductCreatedAt}</h3>
+            <h3 className=" text-warning-100">{Product?.ProductTitle}</h3>
           </div>
 
           {/* Options */}
@@ -126,14 +127,22 @@ export default function Product() {
               </div>
             </div>
             <div>
+              <h3 className="text-white">Product Created On</h3>
+              <div className="space-y-6">
+                <p className="text-base text-warning-100">
+                  {Product?.ProductCreatedAt}
+                </p>
+              </div>
+            </div>
+            <div>
               <h3 className="text-white" >Seller Details</h3>
-              <div className="space-y-2">
+              <div className=" space-y-1">
                 <p className=" text-warning-100">
                   {Product?.ProductSeller.FirstName}{" "}
                   {Product?.ProductSeller.LastName}
                 </p>
                 <p className="text-base text-white">
-                   Phone Number:{Product?.ProductSeller.PhoneNumber}
+                   Phone Number: <span className="text-black font-semibold">{Product?.ProductSeller.PhoneNumber}</span>
                 </p>
               </div>
             </div>

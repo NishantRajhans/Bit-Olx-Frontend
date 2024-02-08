@@ -20,7 +20,6 @@ export default function WishList() {
         },
       }
     );
-    console.log(WishListData)
     setWishList(WishListData?.data.User[0].WishList);
     setWistListCount(WishListData?.data.User[0].WishList?.length);
   }
@@ -33,8 +32,8 @@ export default function WishList() {
         },
       }
     );
-    toast.success("Remove From WishList Successfully")
-    console.log(WishListData)
+    if(WishListData.data.success==false)toast.error(WishListData.data.message)
+        else toast.success(WishListData.data.message)
     setWistListCount(WishListData?.data.User.WishList?.length);
     WishListCall();
   }

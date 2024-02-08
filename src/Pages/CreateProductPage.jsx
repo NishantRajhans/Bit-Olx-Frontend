@@ -35,7 +35,6 @@ export default function CreateProduct() {
       try {
         const data = new FormData(event.currentTarget);
         data.append("ProductImage",file)
-        if(!file)toast.error("Image is not available")
         const ProductInfo=await axios.post("https://bit-olx-backend.onrender.com/api/v1/Product/CreateProduct",
         {
           ProductImage:data.get("ProductImage"),
@@ -51,7 +50,8 @@ export default function CreateProduct() {
           },
         }
         )
-        toast.success("Product created successfully")
+        if(ProductInfo.data.success==false)toast.error(ProductInfo.data.message)
+        else toast.success(ProductInfo.data.message)
       } catch (err) {
         console.log("Error in Fetching data:", err)
       }
