@@ -145,7 +145,7 @@ export default function AllProducts() {
                     {product.ProductTitle}
                   </Typography>
                   <Typography className=" text-warning-100">
-                    {product.ProductDescription}
+                    {product.ProductDescription.substring(0,20)+"..."}
                   </Typography>
                   <Typography className=" text-warning-100">
                     {product.ProductPrice}
