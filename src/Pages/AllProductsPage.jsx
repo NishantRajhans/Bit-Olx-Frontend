@@ -141,6 +141,9 @@ export default function AllProducts() {
                   navigate(`/Product/${product._id}`);
                 }}
                 >
+                  <Typography className=" text-white">
+                    {product.ProductTitle}
+                  </Typography>
                   <Typography className=" text-warning-100">
                     {product.ProductDescription}
                   </Typography>
