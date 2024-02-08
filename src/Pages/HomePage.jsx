@@ -4,6 +4,7 @@ import {
   ServerIcon,
 } from "@heroicons/react/20/solid";
 import "../App.css";
+import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 
 const features = [
@@ -43,18 +44,18 @@ export default function HomePage() {
 
               </p>
               <div className="mt-10 flex items-center justify-center gap-x-6">
-                <a
-                  href={localStorage.getItem("Token")?"https://bit-olx-frontend.vercel.app/AllProducts":"https://bit-olx-frontend.vercel.app/SignUp"}
+                <Link
+                    to={localStorage.getItem("Token")?"https://bit-olx-frontend.vercel.app/AllProducts":"https://bit-olx-frontend.vercel.app/SignUp"}
                   className="rounded-md bg-red-700 px-3.5 py-3.5 text-sm font-semibold text-white shadow-sm hover:text-black"
                 >
                   Get started
-                </a>
-                <a
-                  href={localStorage.getItem("Token")?"https://bit-olx-frontend.vercel.app/AllProducts":"https://bit-olx-frontend.vercel.app/LogIn"}
+                </Link>
+                <Link
+                  to={localStorage.getItem("Token")?"https://bit-olx-frontend.vercel.app/AllProducts":"https://bit-olx-frontend.vercel.app/LogIn"}
                   className="text-sm font-bold leading-6 text-white border-white border-2 rounded-md p-2"
                 >
                   Learn more <span aria-hidden="true">→</span>
-                </a>
+                </Link>
               </div>
             </div>
           </div>

@@ -8,7 +8,7 @@ export default function Footer(){
             <div className="container px-6 pt-6 mx-auto">
                 <div className="mb-6 flex justify-evenly w-full">
                     <TERipple rippleColor="light" className=' cursor-pointer'>
-                        <Link to=""
+                        <Link to="https://www.facebook.com/priyanshu.tyagi.108"
 
                             type="button"
                             className="m-1 h-9 w-9 rounded-full border-2 border-warning-100 uppercase leading-normal text-warning-100 transition duration-150 ease-in-out hover:bg-black hover:bg-opacity-5 focus:outline-none focus:ring-0"
@@ -26,7 +26,7 @@ export default function Footer(){
                     </TERipple>
 
                     <TERipple rippleColor="light" className=' cursor-pointer'>
-                        <Link to=""
+                        <Link to="https://twitter.com/rahulsunda977"
 
                             type="button"
                             className="m-1 h-9 w-9 rounded-full border-2 border-warning-100 uppercase leading-normal text-warning-100 transition duration-150 ease-in-out hover:bg-black hover:bg-opacity-5 focus:outline-none focus:ring-0"
@@ -64,7 +64,7 @@ export default function Footer(){
                     </TERipple>
 
                     <TERipple rippleColor="light" className=' cursor-pointer'>
-                        <Link to=""
+                        <Link to="https://www.instagram.com/rahul.sunda.2003/"
 
                             type="button"
                             className="m-1 h-9 w-9 rounded-full border-2 border-warning-100 uppercase leading-normal text-warning-100 transition duration-150 ease-in-out hover:bg-black hover:bg-opacity-5 focus:outline-none focus:ring-0"
