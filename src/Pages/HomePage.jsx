@@ -1,35 +1,33 @@
-import { useState } from "react";
-import { Dialog } from "@headlessui/react";
-import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline";
-import { CalendarDaysIcon, HandRaisedIcon } from '@heroicons/react/24/outline'
 import {
   CloudArrowUpIcon,
   LockClosedIcon,
   ServerIcon,
 } from "@heroicons/react/20/solid";
 import "../App.css";
+import { useNavigate } from "react-router-dom";
 
 const features = [
   {
-    name: "Push to deploy.",
+    name: "Save Money: ",
     description:
-      "Lorem ipsum, dolor sit amet consectetur adipisicing elit. Maiores impedit perferendis suscipit eaque, iste dolor cupiditate blanditiis ratione.",
+      " Buy quality used items at a fraction of the cost of new ones, helping you stretch your college budget further.",
     icon: CloudArrowUpIcon,
   },
   {
-    name: "SSL certificates.",
+    name: "Sustainability: ",
     description:
-      "Anim aute id magna aliqua ad ad non deserunt sunt. Qui irure qui lorem cupidatat commodo.",
+      "Reduce waste and environmental impact by giving pre-loved items a second life.",
     icon: LockClosedIcon,
   },
   {
-    name: "Database backups.",
+    name: "Community: ",
     description:
-      "Ac tincidunt sapien vehicula erat auctor pellentesque rhoncus. Et magna sit morbi lobortis.",
+      "Join a vibrant community of college students buying and selling goods, supporting each other along the way.",
     icon: ServerIcon,
   },
 ];
 export default function HomePage() {
+  const navigate=useNavigate()
   return (
     <>
       <div className=" bg-black">
@@ -37,22 +35,22 @@ export default function HomePage() {
           <div className="mx-auto max-w-2xl py-32 sm:py-48 lg:py-56">
             <div className="text-center">
               <h1 className="text-4xl font-bold tracking-tight text-white sm:text-6xl">
-                Data to enrich your online business
+              Welcome to BitOlx - Your Campus Marketplace!
+
               </h1>
               <p className="mt-6 text-lg leading-8 text-warning-100">
-                Anim aute id magna aliqua ad ad non deserunt sunt. Qui irure qui
-                lorem cupidatat commodo. Elit sunt amet fugiat veniam occaecat
-                fugiat aliqua.
+              Are you a college student looking to save money on essential items for your academic journey? Look no further! BitOlx is your go-to destination for finding affordable, high-quality used products tailored to your college needs.
+
               </p>
               <div className="mt-10 flex items-center justify-center gap-x-6">
                 <a
-                  href="http://localhost:3000/SignUp"
+                  href={localStorage.getItem("Token")?"https://bit-olx-frontend.vercel.app/AllProducts":"https://bit-olx-frontend.vercel.app/SignUp"}
                   className="rounded-md bg-red-700 px-3.5 py-3.5 text-sm font-semibold text-white shadow-sm hover:text-black"
                 >
                   Get started
                 </a>
                 <a
-                  href="#"
+                  href={localStorage.getItem("Token")?"https://bit-olx-frontend.vercel.app/AllProducts":"https://bit-olx-frontend.vercel.app/LogIn"}
                   className="text-sm font-bold leading-6 text-white border-white border-2 rounded-md p-2"
                 >
                   Learn more <span aria-hidden="true">→</span>
@@ -73,15 +71,15 @@ export default function HomePage() {
             <div className="lg:pr-8 lg:pt-4">
               <div className="lg:max-w-lg mx-auto">
                 <h2 className="text-base font-semibold leading-7 text-white">
-                  Deploy faster
+                  Sell faster
                 </h2>
                 <p className="mt-2 text-3xl font-bold tracking-tight text-white sm:text-4xl">
-                  A better workflow
+                Discover Affordable College Essentials
+
                 </p>
                 <p className="mt-6 text-lg leading-8 text-warning-100">
-                  Lorem ipsum, dolor sit amet consectetur adipisicing elit.
-                  Maiores impedit perferendis suscipit eaque, iste dolor
-                  cupiditate blanditiis ratione.
+                Browse through our diverse selection of college essentials, including textbooks, electronics, furniture,and clothing. Whether you're gearing up for a new semester or looking to upgrade your study space, we've got you covered with budget-friendly options that won't break the bank.
+
                 </p>
                 <dl className="mt-10 max-w-xl space-y-8 text-base leading-7 text-white lg:max-w-none">
                   {features.map((feature) => (
@@ -104,11 +102,10 @@ export default function HomePage() {
                   <div className="mx-auto grid max-w-2xl grid-cols-1 gap-x-8 gap-y-16 lg:max-w-none">
                     <div className="max-w-xl lg:max-w-lg">
                       <h2 className="text-3xl font-bold tracking-tight text-white sm:text-4xl">
-                        Subscribe to our newsletter.
+                      Join the BitOlx Community Today!
                       </h2>
                       <p className="mt-4 text-lg leading-8 text-warning-100">
-                        Nostrud amet eu ullamco nisi aute in ad minim nostrud
-                        adipisicing velit quis. Duis tempor incididunt dolore.
+                      Ready to start saving money and finding great deals on college essentials? Sign up now to unlock exclusive benefits, connect with fellow students, and take advantage of our student-friendly marketplace!
                       </p>
                       <div className="mt-6 flex max-w-md gap-x-4">
                         <label htmlFor="email-address" className="sr-only">
@@ -125,6 +122,7 @@ export default function HomePage() {
                         />
                         <button
                           type="submit"
+                          onClick={()=>{navigate("/SignUp")}}
                           className="flex-none rounded-md bg-red-700 px-3.5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-indigo-400 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-500"
                         >
                           Subscribe
