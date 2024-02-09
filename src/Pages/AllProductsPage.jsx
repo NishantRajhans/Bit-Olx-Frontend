@@ -129,7 +129,7 @@ export default function AllProducts() {
                 />
                 <CardMedia
                   component="img"
-                  height="194"
+                  sx={{maxHeight:300,objectFit:"fill"}}
                   image={product.ProductImage}
                   alt="Paella dish"
                   className=" text-white font-bold"
